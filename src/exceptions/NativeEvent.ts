@@ -18,4 +18,4 @@ class NativeEvent {
   }
 }
 
-export default new NativeEvent();
+export default NativeEvent;
