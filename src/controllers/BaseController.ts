@@ -48,15 +48,15 @@ abstract class BaseController {
     }
   }
 
-  private response(result: ResultResponse) {
-    if (typeof result === "string") {
+  private response(response: ResultResponse) {
+    if (["string", "number"].includes(typeof response.result)) {
       this._res.header("content-type", "text/html");
-    } else if (typeof result === "object") {
+    } else if (typeof response.result === "object") {
       this._res.header("content-type", "application/json");
     }
 
-    this._res.statusCode = result.statusCode;
-    this._res.send(result.result);
+    this._res.statusCode = response.statusCode;
+    this._res.send(response.result);
   }
 }
 
