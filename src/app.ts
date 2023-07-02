@@ -3,7 +3,7 @@ import router from "./routes";
 
 export default class App {
   public instance;
-  private port = 9000;
+  private port = process.env.PORT || 9000;
 
   constructor() {
     this.instance = express();
