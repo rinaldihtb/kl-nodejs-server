@@ -1,7 +1,7 @@
 {
-  "name": "oauth-2",
-  "version": "1.0.0",
-  "description": "",
+  "name": "kj-nodejs-server",
+  "version": "0.0.1",
+  "description": "NodeJs Framework with ExpressJS and Typescript",
   "main": "main.ts",
   "scripts": {
     "start": "nodemon",
@@ -11,7 +11,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
