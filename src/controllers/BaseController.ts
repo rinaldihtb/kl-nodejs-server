@@ -1,6 +1,7 @@
 import { Response as Res, Request as Req } from "express";
 import Result from "../models/Result";
 import { ResultResponse } from "../Dtos/Result.dto";
+import { BaseError } from "../exceptions";
 
 abstract class BaseController {
   private _ctx: any;
@@ -32,11 +33,18 @@ abstract class BaseController {
     try {
       this.wrapActions();
       const result = this.action();
-      
+
       this.response(result);
     } catch (error) {
-      console.error(error);
-      this.response(this.action());
+      if (error instanceof BaseError) {
+        // logging errors
+        error.log();
+        this.response(
+          Result.withError(error.message, { statusCode: error.statusCode })
+        );
+      } else {
+        this.response(Result.withError("Not Found", { statusCode: 404 }));
+      }
     }
   }
 
