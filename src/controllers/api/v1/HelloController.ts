@@ -2,13 +2,10 @@ import { ResultResponse } from "../../../Dtos/Result.dto";
 import Result from "../../../models/Result";
 import BaseController from "../../BaseController";
 
-class MainController extends BaseController {
+class HelloController extends BaseController {
   protected action(): ResultResponse {
-    const result = {
-      hi: "there"
-    };
-    return Result.success(result, { statusCode: 500 });
+    return Result.success("Hello There");
   }
 }
 
-export default new MainController();
+export default new HelloController();
