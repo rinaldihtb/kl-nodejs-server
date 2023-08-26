@@ -30,17 +30,22 @@ export default class ERouter {
   setRoute(
     path: string,
     method: string,
-    controller: BaseController,
+    controller: BaseController | any,
     guards: Array<string>
   ) {
     this.route.use(
       path,
       this.loadMiddleware(guards),
       (req: Request, res: Response) => {
-        controller.req = req;
-        controller.res = res;
-        controller.method = method;
-        controller.main();
+        if (controller instanceof BaseController) {
+          controller.req = req;
+          controller.res = res;
+          controller.method = method;
+          controller.main();  
+        } else {
+          controller(req, res);
+          res.end();
+        }
       }
     );
   }
