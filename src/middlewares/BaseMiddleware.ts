@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import {type Request, type Response} from 'express';
 
 abstract class BaseMiddleware {
-  protected req = {} as Request;
-  protected res = {} as Response;
+	protected req: Request | unknown;
+	protected res: Response | unknown;
 
-  abstract name: string;
-  abstract action(req: Request, res: Response): void;
+	abstract name: string;
+	abstract action(req: Request, res: Response): void;
 }
 
 export default BaseMiddleware;

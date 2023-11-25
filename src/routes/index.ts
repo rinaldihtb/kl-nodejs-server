@@ -1,9 +1,10 @@
-import { Router } from "express";
-import api from "./api";
-const router = Router();
+import {Router as iRouter} from 'express';
+import api from './api';
+const router = iRouter();
 
-router.use("/api/v1", api);
-// router.use("/", api);
+
+router.use('/api/v1', api);
+// Router.use("/", api);
 // router.get("/", api.route);
 
 export default router;

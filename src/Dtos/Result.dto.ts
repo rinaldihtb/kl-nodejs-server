@@ -1,34 +1,34 @@
 class ResultResponse {
-  constructor(public result: any, public statusCode: number) {}
+	constructor(public result: any, public statusCode: number) {}
 }
 
-interface ResultErrorParams {
-  payload?: any;
-  statusCode?: number;
-}
+type ResultErrorParams = {
+	payload?: object;
+	statusCode?: number;
+};
 
-interface ResultSuccessParams {
-  statusCode?: number;
-}
+type ResultSuccessParams = {
+	statusCode?: number;
+};
 
-interface ErrorInterface {
-  message: string;
-  errors?: object;
-}
+type ErrorInterface = {
+	message: string;
+	errors?: Record<string, any>;
+};
 
 class ResultWithErrorResponse extends ResultResponse {
-  constructor(
-    public result: ErrorInterface,
-    public statusCode: number,
-    public payloads?: any
-  ) {
-    super(result, statusCode);
-  }
+	constructor(
+		public result: ErrorInterface,
+		public statusCode: number,
+		public payloads?: object,
+	) {
+		super(result, statusCode);
+	}
 }
 
 export {
-  ResultErrorParams,
-  ResultSuccessParams,
-  ResultResponse,
-  ResultWithErrorResponse
+	type ResultErrorParams,
+	type ResultSuccessParams,
+	ResultResponse,
+	ResultWithErrorResponse,
 };

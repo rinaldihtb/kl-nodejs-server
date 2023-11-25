@@ -1,13 +1,12 @@
 abstract class BaseError extends Error {
-  abstract statusCode: number;
+	abstract statusCode: number;
 
-  protected constructor() {
-    super();
-  }
+	protected constructor() {
+		super();
+	}
 
-  log(): void {
-    console.log(`(${this.statusCode}) ${this.name} : ${this.message}`);
-  }
+	log(): void {console.log(`(${this.statusCode}) ${this.name} : ${this.message}`);
+	}
 }
 
 export default BaseError;
