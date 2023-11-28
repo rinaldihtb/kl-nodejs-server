@@ -1,8 +1,10 @@
-import {Router, type Request, type Response, type NextFunction} from 'express';
+import {Router, type Request, type Response, type NextFunction, type RequestHandler} from 'express';
 import BaseController from '../controllers/BaseController';
-import type BaseMiddleware from '../middlewares/BaseMiddleware';
 import AuthMiddleware from '../middlewares/Auth.middleware';
 import PermissionMiddleware from '../middlewares/Permission.middleware';
+import BaseMiddleware from '../middlewares/BaseMiddleware';
+
+type DefaultController = ((req: Request, res: Response) => void);
 
 export default class ERouter {
 	route: Router;
@@ -11,7 +13,7 @@ export default class ERouter {
 		this.route = Router();
 	}
 
-	loadMiddleware(guards: string[]): any[] {
+	loadMiddleware(guards: string[]): RequestHandler[] {
 		const middlewares: BaseMiddleware[] = [
 			AuthMiddleware,
 			PermissionMiddleware,
@@ -19,17 +21,18 @@ export default class ERouter {
 
 		return middlewares.map(middleware => (req: Request, res: Response, next: NextFunction) => {
 			if (guards.includes(middleware.name)) {
-				middleware.action(req, res);
+				middleware.init(req, res);
+				middleware.action();
 			}
 
 			next();
 		});
 	}
 
-	setRoute(
+	setRoute<Controller extends BaseController>(
 		path: string,
 		method: string,
-		controller: BaseController | any,
+		controller: Controller | DefaultController,
 		guards: string[],
 	): void {
 		this.route.use(

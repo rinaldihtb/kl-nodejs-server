@@ -5,7 +5,11 @@ abstract class BaseMiddleware {
 	protected res: Response | unknown;
 
 	abstract name: string;
-	abstract action(req: Request, res: Response): void;
+	abstract action():void;
+	public init(req: Request, res: Response): void {
+		this.req = req;
+		this.res = res;
+	}
 }
 
 export default BaseMiddleware;

@@ -23,7 +23,7 @@ class Result {
 	}
 
 	success(
-		result: Record<string, unknown> | string,
+		result: string,
 		params?: ResultSuccessParams,
 	): ResultResponse {
 		return {

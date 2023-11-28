@@ -44,7 +44,7 @@ abstract class BaseController {
 					Result.withError(error.message, { statusCode: error.statusCode })
 				);
 			} else {
-				this.response(Result.withError('Not Found', { statusCode: 404 }));
+				this.response(Result.withError('Not Found', { statusCode: 404, payload: {hello: 'world'} }));
 			}
 		}
 	}

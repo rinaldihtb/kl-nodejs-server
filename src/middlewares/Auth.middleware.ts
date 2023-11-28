@@ -1,13 +1,9 @@
-import {type Response, type Request} from 'express';
 import BaseMiddleware from './BaseMiddleware';
 
 class AuthMiddleware extends BaseMiddleware {
 	public name = 'auth-guard';
 
-	public action(req: Request, res: Response): void {
-		this.req = req;
-		this.res = res;
-
+	public action(): void {
 		console.log(`Check - ${this.name}`);
 	}
 }
