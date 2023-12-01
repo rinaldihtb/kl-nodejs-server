@@ -1,5 +1,9 @@
 {
   "watch": ["src/**/*.ts", "main.ts"],
   "ext": "ts,json",
-  "exec": "ts-node ./main.ts"
+  "exec": "ts-node ./main.ts",
+  "verbose" : true,
+  "execMap" : {
+    "ts" : "ts-node"
+  }
 }

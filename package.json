@@ -5,6 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "start": "nodemon",
+    "debug": "nodemon --exec \"node --inspect=0.0.0.0:9229 --require ts-node/register ./main.ts\" --verbose true --delay 5000ms",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ext .js,.ts .",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
