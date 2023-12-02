@@ -1,5 +1,6 @@
 import express from 'express';
-import router from './routes';
+import router from '@routes';
+import bodyParser from 'body-parser';
 
 export default class App {
 	public instance;
@@ -10,6 +11,8 @@ export default class App {
 	}
 
 	loadMiddlewares(): void {
+		this.instance.use(bodyParser.urlencoded({extended:false}));
+		this.instance.use(bodyParser.json());
 		this.instance.use(router);
 	}
 

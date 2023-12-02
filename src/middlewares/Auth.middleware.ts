@@ -4,8 +4,8 @@ class AuthMiddleware extends BaseMiddleware {
 	public name = 'auth-guard';
 
 	public action(): void {
-		console.log(`Check - ${this.name}`);
+		// Action Here
 	}
 }
 
-export default new AuthMiddleware();
+export default AuthMiddleware;

@@ -3,7 +3,6 @@ import ErrorBadRequest from './ErrorBadRequest';
 import ErrorForbidden from './ErrorForbidden';
 import ErrorNotFound from './ErrorNotFound';
 import ErrorUnauthorized from './ErrorUnauthorized';
-import NativeEvent from './NativeEvent';
 
 export {
 	ErrorBadRequest,
@@ -11,5 +10,4 @@ export {
 	ErrorForbidden,
 	ErrorNotFound,
 	BaseError,
-	NativeEvent,
 };

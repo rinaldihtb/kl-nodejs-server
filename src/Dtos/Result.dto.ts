@@ -7,7 +7,7 @@ interface ResultErrorParams {
 	statusCode?: number;
 }
 
-interface ResultSuccessParams  {
+interface ResultSuccessParams {
 	statusCode?: number;
 }
 

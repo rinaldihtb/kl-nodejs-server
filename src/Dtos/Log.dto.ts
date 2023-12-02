@@ -1,0 +1,9 @@
+enum RUNTIME_LOG_TYPE {
+	NOTICE = 'NOTICE',
+	WARNING = 'WARNING',
+	ERROR = 'ERROR'
+}
+
+export {
+	RUNTIME_LOG_TYPE
+};

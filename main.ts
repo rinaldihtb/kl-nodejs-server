@@ -1,8 +1,8 @@
-import App from './src/app';
+import App from '@src/app';
 import cluster from 'node:cluster';
 import os from 'node:os';
 import 'dotenv/config';
-import {NativeEvent} from './src/exceptions';
+import { NativeEvent } from '@events';
 
 if (cluster.isPrimary && process.env.ENABLE_WORKERTHREAD === 'true') {
 
@@ -14,7 +14,7 @@ if (cluster.isPrimary && process.env.ENABLE_WORKERTHREAD === 'true') {
 	}
 	const nativeEvent = new NativeEvent();
 	nativeEvent.cluster(cluster);
-	
+
 } else {
 	process.on('SIGHUP', function() {});
 	const app = new App();
