@@ -5,7 +5,7 @@ abstract class BaseError extends Error {
 		super();
 	}
 
-	log(): void {console.log(`(${this.statusCode}) ${this.name} : ${this.message}`);
+	log(): void { console.log(`(${this.statusCode}) ${this.name} : ${this.message}`);
 	}
 }
 

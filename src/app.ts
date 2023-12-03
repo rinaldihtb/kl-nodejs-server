@@ -1,6 +1,8 @@
 import express from 'express';
 import router from '@routes';
 import bodyParser from 'body-parser';
+import LogService from './services/Log.service';
+import { RUNTIME_LOG_TYPE } from './dtos/Log.dto';
 
 export default class App {
 	public instance;
@@ -25,9 +27,8 @@ export default class App {
 	start() {
 		this.init();
 		this.instance.listen(this.port, () => {
-			console.log(
-				`Instance has been started on port ${this.port} on process ${process.pid}. ${process.env.HOST}:${this.port}`,
-			);
+			LogService.print(`Instance has been started on port ${this.port} on process ${process.pid}. ${process.env.HOST}:${this.port}`, RUNTIME_LOG_TYPE.NOTICE);
+
 		});
 	}
 }

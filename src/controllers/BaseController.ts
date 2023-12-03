@@ -1,13 +1,15 @@
-import { type Response, type Request } from 'express';
+import { type Response, type Request, NextFunction } from 'express';
 import Result from '@models/Result';
 import { LogDTO, ResultDTO } from '@dtos';
-import { BaseError, ErrorBadRequest } from '@exceptions';
+import { BaseError } from '@exceptions';
 import LogService from '@src/services/Log.service';
+import HelperService from '@src/services/Helper.service';
 
 abstract class BaseController {
 	private readonly _ctx: unknown;
 	private _req: Request;
 	private _res: Response;
+	private _next: NextFunction;
 	private _method: string;
 
 	public set req (request: Request) {
@@ -16,6 +18,10 @@ abstract class BaseController {
 
 	public set res (response: Response) {
 		this._res = response;
+	}
+	
+	public set next (next: NextFunction) {
+		this._next = next;
 	}
 
 	public set method (method: string) {
@@ -26,6 +32,7 @@ abstract class BaseController {
 		this._ctx = null;
 		this._req = {} as Request;
 		this._res = {} as Response;
+		this._next = {} as NextFunction;
 		this._method = 'all';
 	}
 
@@ -33,11 +40,15 @@ abstract class BaseController {
   
 	main () {
 		try {
-			LogService.print(this._req.body, LogDTO.RUNTIME_LOG_TYPE.NOTICE);
+			//Logging Start
+			LogService.print(['Request', HelperService.getSummaryRequest(this._req)], LogDTO.RUNTIME_LOG_TYPE.NOTICE);
+
+			//Perform neccessary action
 			this.wrapActions();
+
+			//Execute controller action
 			const result = this.action();
 
-			//Logging Start
 			this.response(result);
 		} catch (error) {
 			if (error instanceof BaseError) {
@@ -54,9 +65,10 @@ abstract class BaseController {
 
 	private wrapActions () {
 		// Check methods
-		if (this._req.method.toLowerCase() !== this._method) {
-			throw new ErrorBadRequest('Bad Request');
-		}
+		// if (this._req.method.toLowerCase() !== this._method) {
+		// 	throw new ErrorBadRequest('Bad Request');
+		// 	// this._next();
+		// }
 	}
 
 	private response (response: ResultDTO.ResultResponse) {
@@ -66,6 +78,8 @@ abstract class BaseController {
 		} else if (typeof response.result === 'object') {
 			this._res.json(response.result).end();
 		}
+
+		LogService.print(['Response', HelperService.getSummaryResponse(this._res, response)], LogDTO.RUNTIME_LOG_TYPE.NOTICE);
 	}
 }
 

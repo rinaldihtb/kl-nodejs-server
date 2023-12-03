@@ -38,6 +38,7 @@ class Log{
 
 	private execute(msg: unknown, c: ChalkFunction, type: LogDTO.RUNTIME_LOG_TYPE) :void {
 		if(process.env.RUNTIME_LOG_ENABLE === 'true') {
+			// eslint-disable-next-line @typescript-eslint/no-var-requires
 			this.log(`[${c(type)}|${chalk.blackBright(Helper.getLoggingDate())}]:`, (typeof msg === 'object') ? c(require('util').inspect(msg, {colors:true, depth:null})): c(msg));
 		}
 	}
