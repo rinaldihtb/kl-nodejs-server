@@ -81,6 +81,10 @@ abstract class BaseController {
 
 		LogService.print(['Response', HelperService.getSummaryResponse(this._res, response)], LogDTO.RUNTIME_LOG_TYPE.NOTICE);
 	}
+
+	protected getParams() :object{
+		return this._req.params;
+	}
 }
 
 export default BaseController;

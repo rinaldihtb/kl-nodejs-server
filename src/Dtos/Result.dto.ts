@@ -1,5 +1,5 @@
 class ResultResponse {
-	constructor(public result: string | ErrorInterface, public statusCode: number) {}
+	constructor(public result: string | object | ErrorInterface, public statusCode: number) {}
 }
 
 interface ResultErrorParams {
