@@ -11,6 +11,8 @@ abstract class BaseController {
 	private _res: Response;
 	private _next: NextFunction;
 	private _method: string;
+	protected log : typeof LogService = LogService;
+	protected helper : typeof HelperService = HelperService;
 
 	public set req (request: Request) {
 		this._req = request;
@@ -40,16 +42,11 @@ abstract class BaseController {
   
 	main () {
 		try {
-			//Logging Start
-			LogService.print(['Request', HelperService.getSummaryRequest(this._req)], LogDTO.RUNTIME_LOG_TYPE.NOTICE);
-
 			//Perform neccessary action
 			this.wrapActions();
 
 			//Execute controller action
-			const result = this.action();
-
-			this.response(result);
+			this.response(this.action());
 		} catch (error) {
 			if (error instanceof BaseError) {
 				this.response(
@@ -59,16 +56,13 @@ abstract class BaseController {
 				this.response(Result.withError('Not Found', { statusCode: 404, payload: {hello: 'world'} }));
 			}
 
-			LogService.print(error, LogDTO.RUNTIME_LOG_TYPE.ERROR);
+			this.log.print(error, LogDTO.RUNTIME_LOG_TYPE.ERROR);
 		}
 	}
 
 	private wrapActions () {
-		// Check methods
-		// if (this._req.method.toLowerCase() !== this._method) {
-		// 	throw new ErrorBadRequest('Bad Request');
-		// 	// this._next();
-		// }
+		//Logging Start
+		this.log.print(['Request', HelperService.getSummaryRequest(this._req)], LogDTO.RUNTIME_LOG_TYPE.NOTICE);
 	}
 
 	private response (response: ResultDTO.ResultResponse) {
@@ -79,7 +73,7 @@ abstract class BaseController {
 			this._res.json(response.result).end();
 		}
 
-		LogService.print(['Response', HelperService.getSummaryResponse(this._res, response)], LogDTO.RUNTIME_LOG_TYPE.NOTICE);
+		LogService.print(['Response', this.helper.getSummaryResponse(this._res, response)], LogDTO.RUNTIME_LOG_TYPE.NOTICE);
 	}
 
 	protected getParams() :object{

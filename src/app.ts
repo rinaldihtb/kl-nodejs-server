@@ -13,7 +13,7 @@ export default class App {
 	}
 
 	loadMiddlewares(): void {
-		this.instance.use(bodyParser.urlencoded({extended:false}));
+		this.instance.use(bodyParser.urlencoded({ extended: false }));
 		this.instance.use(bodyParser.json());
 		this.instance.use(router);
 	}
@@ -27,8 +27,10 @@ export default class App {
 	start() {
 		this.init();
 		this.instance.listen(this.port, () => {
-			LogService.print(`Instance has been started on port ${this.port} on process ${process.pid}. ${process.env.HOST}:${this.port}`, RUNTIME_LOG_TYPE.NOTICE);
-
+			LogService.print(
+				`Instance has been started on port ${this.port} on process ${process.pid}. ${process.env.HOST}:${this.port}`,
+				RUNTIME_LOG_TYPE.NOTICE
+			);
 		});
 	}
 }
