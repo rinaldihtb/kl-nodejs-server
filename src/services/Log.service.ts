@@ -47,6 +47,7 @@ class Log {
 				`[${c(type)}|
 				${chalk.blackBright(Helper.getLoggingDate())}]:`,
 				typeof msg === 'object'
+					// eslint-disable-next-line @typescript-eslint/no-var-requires
 					? c(require('util').inspect(msg, { colors: true, depth: null }))
 					: c(msg)
 			);
